@@ -1,0 +1,1 @@
+5月6日，苹果美国官网显示，苹果“iCloud 文稿和数据”合并至 iCloud Drive 已完成。“iCloud文稿和数据是我们的旧版文档同步服务，现已停产并由iCloud Drive取代。如果您使用iCloud文稿和数据，您的帐户已迁移到iCloud Drive。”2021年5月，苹果宣布将于2022年5月将其“iCloud文稿和数据”服务合并到iCloud Drive。目前，绝大多数“iCloud”用户已经启用了“iCloud Drive”，这项迁移主要针对在2014年推出iCloud Drive之前拥有iCloud帐户但从未启用它的用户。较旧的“iCloud文稿和数据”服务将云同步数据保存在特定App的文件夹中，只允许从该App访问数据。
