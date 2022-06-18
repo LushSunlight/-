@@ -7,7 +7,6 @@ from django.utils.encoding import smart_text
 # TODO: 结合新词构建的词典，进一步加载，
 #  input: new_Dicts文件夹下的每个子文件夹（一个子文件夹代表一次迭代，一次迭代以天为单位）下的各个新词典
 
-
 def check_file_charset(file):
     with open(file,'rb') as f:
         return chardet.detect(f.read())
