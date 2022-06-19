@@ -17,6 +17,15 @@
 
 With the development of Web 2.0 technology and mobile networks, more and more people are interacting on the Web, generating a large amount of unstructured Web text. It is because people express themselves very casual in social media, so a large number of non-standard expressions like abbreviations, emoticons, etc. are generated in today's network, which is not conducive to our Chinese word separation for normative texts. Additionally, there is a lot of noise, which increases the difficulty of understanding and word separation, causing the later high-level applications such as natural language processing cannot analyze and interpret directly on this word separation result. Some studies indicate a 10% difference between the same word separation system applied to a social platform corpus and a normative corpus. Therefore, we try to avoid crawling social media user posts when selecting the corpus. Instead, we choose news website articles to crawl. News is a standardized style with good ability for separation. However, in order not to lose coverage of the new vocabulary, we additionally chose web novels to add to the corpus, meaning that we ensure both the richness and normativity of the sample pool in the corpus.
 
+**Our corpus,**
+
+**Sina News, 2022, 924MB**
+
+**Xinwenlianbo scripts of CCTV, 63MB**
+
+**Biquge Web Novels, 877MB**
+
+
 #### scheme design和parameter
 
 - [ ] 修改workflow图
@@ -91,6 +100,56 @@ Gensim（generate similarity）是一个简单高效的自然语言处理Python�
 用语言难以描述的可以搞几个示意图。
 
 #### 爬取语料库
+
+We use Scrapy framwork to corpus.
+
+1. Set scraping date.
+
+2. We start from main page, generating every news page waiting for scraping according to the user input of date.
+
+3. Get the html code using Requests module in Python for every news page, parse the news id, title, content, and release time respectively according to the structure of the webpage.
+
+    - Sina News:
+
+        ```python
+        item = SinaNewsItem()
+        item['news_id'] = re.search(r'\d+', response.url.split('/')[-1]).group()
+        item['news_title'] = response.xpath('//h1[@class="main-title"]/text()').extract_first()
+        article_p_list = response.xpath('//div[@class="article"]//p//text()').extract()
+        article = '/'.join(article_list)
+        item['news_content'] = article
+        item['news_date'] = response.xpath('//span[@class="date"]/text()').extract_first()
+        ```
+
+    - Xinwenlianbo:
+
+        ```python
+        def tag_filter_headline(tag):
+            flag_1 = (tag.name == 'li') and not tag.has_attr('class')
+        def tag_filter_content(tag):
+            flag_1 = (tag.name == 'p') and not tag.has_attr('class')
+        soup = BeautifulSoup(r.text, features="lxml")
+        outlines_raw = soup.find_all(tag_filter_headline)
+        full_texts_raw = soup.find_all(tag_filter_content)
+        ```
+
+    - Biquge Novel:
+
+        ```python
+        def get_toc(url):
+            toc_url_block = re.findall('<dl(.*?)</dl>', toc_html.text, re.S)[0]
+            toc_url = re.findall('href="(.*?)"', toc_url_block, re.S)
+            time_block = re.findall('<head(.*?)</head>', toc_html.text, re.S)[0]
+            time = re.findall('<meta property="og:novel:update_time" content="(.*?)"', time_block, re.S)[0]
+        def get_article(url, update_year):
+            chapter_name = re.findall('<h1>(.*?)</h1>', chapter_html.text, re.S)
+            info = selector.xpath('//*[@id="content"]/text()')
+        ```
+
+        
+
+4. Insert records into the MySQL server for news storage, and put an record to Redis server to mark down the id of each news to prevent duplicate crawling during subsequent parsing.
+
 
 #### 分词
 
