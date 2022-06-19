@@ -194,6 +194,43 @@ We use Scrapy framwork to corpus.
 #### 功能测试
 
 把各个模块测试的测试用例列一下，把结果图截下来
+Parsing Info Logging:
+
+```
+['绝世兵王', '不灭战神', '小村那些事', '绝美女神爱上我', '逆天邪神', '小蛮腰', '宋末之乱臣贼子', '混在东瀛成大亨', '刀碎星河', '超级抢红包系统', '美女总裁俏房客', '草根富豪', '夺舍之停不下来', '文娱大时代', '首辅沈栗', '绝品透视眼', '我老婆是冰山女总裁', '纵天神帝', '最佳娱乐时代', '我的极品小姨', '特战医王', '我在女子监狱的日子', '太古丹尊', '美漫之道门修士', '武道系统之草民崛起', '我的邻家空姐', '异次元游戏', '锦医卫', '重生学霸小甜妻', '圣者', '隐婚甜宠：大财阀的小娇妻', '快穿之炮灰逆袭记', '万古第一神', '武侠之巅峰主播', '惜春是个佛修[红楼]', '快穿逆袭：神秘boss，别乱撩', '娱乐帝国系统', '面瘫宝贝，变身吧', '乡村透视小神医', '无敌悍民']
+['https://www.bbiquge.net/book/26668/', 'https://www.bbiquge.net/book/43606/', 'https://www.bbiquge.net/book/56540/', 'https://www.bbiquge.net/book/74020/', 'https://www.bbiquge.net/book/72891/', 'https://www.bbiquge.net/book/84637/', 'https://www.bbiquge.net/book/42602/', 'https://www.bbiquge.net/book/12690/', 'https://www.bbiquge.net/book/14570/', 'https://www.bbiquge.net/book/33128/', 'https://www.bbiquge.net/book/85197/', 'https://www.bbiquge.net/book/368/', 'https://www.bbiquge.net/book/79586/', 'https://www.bbiquge.net/book/45127/', 'https://www.bbiquge.net/book/33597/', 'https://www.bbiquge.net/book/53714/', 'https://www.bbiquge.net/book/99767/', 'https://www.bbiquge.net/book/60402/', 'https://www.bbiquge.net/book/124071/', 'https://www.bbiquge.net/book/92056/', 'https://www.bbiquge.net/book/72568/', 'https://www.bbiquge.net/book/92087/', 'https://www.bbiquge.net/book/96578/', 'https://www.bbiquge.net/book/120165/', 'https://www.bbiquge.net/book/29168/', 'https://www.bbiquge.net/book/4612/', 'https://www.bbiquge.net/book/24396/', 'https://www.bbiquge.net/book/971/', 'https://www.bbiquge.net/book/119295/', 'https://www.bbiquge.net/book/19407/', 'https://www.bbiquge.net/book/116853/', 'https://www.bbiquge.net/book/19937/', 'https://www.bbiquge.net/book/131134/', 'https://www.bbiquge.net/book/40796/', 'https://www.bbiquge.net/book/124118/', 'https://www.bbiquge.net/book/105919/', 'https://www.bbiquge.net/book/4877/', 'https://www.bbiquge.net/book/45648/', 'https://www.bbiquge.net/book/121647/', 'https://www.bbiquge.net/book/79894/']
+正在抓取  绝世兵王
+['第005章 曾经的记忆']
+['第010章 百里柔冰']
+['第014章 恶人先告状']
+['第003章 酒入愁肠']
+['第001章 野店美酒']
+['第006章 活着的痛苦与希望']
+['第009章 应聘']['第002章 机会，靠自己去争取！']
+['第007章 唐小薇']
+['第008章 天铭集团']
+```
+
+File Storage Tree:
+
+```
+D:.
+├─2022年01月01日
+│      2528066.txt
+│            #三只松鼠#【“5年防骗、3年补脑” #三只松鼠营销海报又遭质疑#】近日，网红品牌三只松鼠的一张“331补脑节”的商业海报再次引发关注。海报上少先队员戴着红领巾，拿着“5年防骗、3年补脑”的零食大礼包，行少先队礼的内容被网友质疑。据三只松鼠官方显示，该海报上架与2019年3月，为三只松鼠创立的“331补脑节”。与此同时，三只松鼠也面临营收下滑、大股东减持、市值蒸发、多次被曝出食品安全问题，其“贴牌+代工”的生产模式，也频频陷入舆论风波。责任编辑：梁斌
+│ 
+├─2022年01月02日
+│      7926488.txt
+│
+├─2022年01月03日
+│      8072311.txt
+│
+└─2022年06月15日
+        6815960.txt
+        6816967.txt
+        6855254.txt
+        6855909.txt
+```
 
 #### 性能测试
 
