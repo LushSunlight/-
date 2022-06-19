@@ -61,7 +61,7 @@ def splitFile(inputFile,outputFile):
 
 
 def mySplitWords(text_root_path, output_split_words_root_path):
-    # text_root_path = "./TXTs/2022年06月01日"
+    # text_root_path = "./Corpus/2022年06月01日"
     # output_split_words_root_path = "./output_split_words/2022年06月01日"
     if not os.path.exists(output_split_words_root_path):
         os.makedirs(output_split_words_root_path)
@@ -72,9 +72,9 @@ def mySplitWords(text_root_path, output_split_words_root_path):
         splitFile(fr,fw)
 
 # TODO: 实现一旦分词目录下的子目录数量跟源目录下的子目录数量相同，就切换源目录和分词目录的功能
-def iteratively_split_words(num_iter = 3):
-    text_root_path = "./TXTs"
-    output_split_words_root_path = "./TXTs_output_split_words"
+def iteratively_split_words(num_iter = 3, corpus_num = 1):
+    text_root_path = "./Corpus"
+    output_split_words_root_path = "./Corpus_output_split_words"
     if not os.path.exists(output_split_words_root_path):
         os.makedirs(output_split_words_root_path)
     text_sub_dir_list = os.listdir(text_root_path)
