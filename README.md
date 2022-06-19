@@ -18,10 +18,12 @@
 With the development of Web 2.0 technology and mobile networks, more and more people are interacting on the Web, generating a large amount of unstructured Web text. It is because people express themselves very casual in social media, so a large number of non-standard expressions like abbreviations, emoticons, etc. are generated in today's network, which is not conducive to our Chinese word separation for normative texts. Additionally, there is a lot of noise, which increases the difficulty of understanding and word separation, causing the later high-level applications such as natural language processing cannot analyze and interpret directly on this word separation result. Some studies indicate a 10% difference between the same word separation system applied to a social platform corpus and a normative corpus. Therefore, we try to avoid crawling social media user posts when selecting the corpus. Instead, we choose news website articles to crawl. News is a standardized style with good ability for separation. However, in order not to lose coverage of the new vocabulary, we additionally chose web novels to add to the corpus, meaning that we ensure both the richness and normativity of the sample pool in the corpus.
 
 **Our corpus,**
-**Sina News, 2022, 924MB**
-**Xinwenlianbo scripts of CCTV, 63MB**
-**Biquge Web Novels, 877MB**
 
+**Sina News, 2022, 924MB**
+
+**Xinwenlianbo scripts of CCTV, 63MB**
+
+**Biquge Web Novels, 877MB**
 
 
 #### scheme design和parameter
