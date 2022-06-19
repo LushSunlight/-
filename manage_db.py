@@ -8,7 +8,7 @@ def sql_connection():
         cursor = connection.cursor()
         print("Connection is established: Database is created in memory")
     except Error:
-        print(Error.__str__())
+        print(Error)
     try:
         cursor.execute(
             'CREATE TABLE myDictionary('
@@ -20,7 +20,7 @@ def sql_connection():
         )
         print('Create table myDictionary successfully!')
     except Error:
-        print(Error.__str__())
+        print(Error)
     finally:
         connection.close()
 
