@@ -12,6 +12,11 @@
 
 按软工课说的那样，先写我们有什么需求（比如分词需要有效率，需要分词准确度高，需要便于用户操作，数据完整性、系统安全性balabala），而我们选用的算法/模块有什么优势（比如jieba分词效率高，准确度高，封装性好，便于操作）
 
+- 语料库选择
+
+
+With the development of Web 2.0 technology and mobile networks, more and more people are interacting on the Web, generating a large amount of unstructured Web text. It is because people express themselves very casual in social media, so a large number of non-standard expressions like abbreviations, emoticons, etc. are generated in today's network, which is not conducive to our Chinese word separation for normative texts. Additionally, there is a lot of noise, which increases the difficulty of understanding and word separation, causing the later high-level applications such as natural language processing cannot analyze and interpret directly on this word separation result. Some studies indicate a 10% difference between the same word separation system applied to a social platform corpus and a normative corpus. Therefore, we try to avoid crawling social media user posts when selecting the corpus. Instead, we choose news website articles to crawl. News is a standardized style with good ability for separation. However, in order not to lose coverage of the new vocabulary, we additionally chose web novels to add to the corpus, meaning that we ensure both the richness and normativity of the sample pool in the corpus.
+
 #### scheme design和parameter
 
 - [ ] 修改workflow图
@@ -64,9 +69,14 @@ From the aspect of performance, the segmentation speed is fast enough to meet ou
 
 #### 分类的工具：gensim
 
-扯一下gensim的优越性在哪里
+Gensim（generate similarity）是一个简单高效的自然语言处理Python库，用于抽取文档的语义主题（semantic topics）。Gensim的输入是原始的、无结构的数字文本（纯文本），内置的算法包括Word2Vec，FastText，潜在语义分析（Latent Semantic Analysis，LSA），潜在狄利克雷分布（Latent Dirichlet Allocation，LDA）等，通过计算训练语料中的统计共现模式自动发现文档的语义结构。这些算法都是非监督的，这意味着不需要人工输入——仅仅需要一组纯文本语料。一旦发现这些统计模式后，任何纯文本（句子、短语、单词）就能采用语义表示简洁地表达。
 
-- [ ] 小丁可以扯一下训练分类器时怎么调整的，**定量说明**。
+##### 特点
+-Memory independence： 不需要一次性将整个训练语料读入内存，Gensim充分利用了Python内置的生成器（generator）和迭代器（iterator）用于流式数据处理，内存效率是Gensim设计目标之一。
+-Memory sharing： 训练好的模型可以持久化到硬盘，和重载到内存。多个进程之间可以共享相同的数据，减少了内存消耗。
+-多种向量空间算法的高效实现： 包括Word2Vec，Doc2Vec，FastText，TF-IDF，LSA，LDA，随机映射等。
+-支持多种数据结构。
+-基于语义表示的文档相似度查询。
 
 #### 监控系统
 
@@ -87,6 +97,30 @@ From the aspect of performance, the segmentation speed is fast enough to meet ou
 #### 新词发现
 
 #### 分类
+
+##### 获取训练数据
+1. SougouLabDic: 提供共157202个词语的文本，词频以及词性信息
+2. THUOCL（清华大学开源词库）：提供11个分类下词语的文本及词频信息。11个分类分别为：animal,caijing,car,chenyu,diming,food,it,law,lishimingren,medical,poem
+
+##### 训练数据处理
+- 词语分类：将THUOCL中词语提取出来，将词频的对数作为个数插入进列表，并赋予文件夹名作为标签。同时将SougouDic中的词语依照同样方式插入列表，区别在于标签设为"other"
+- 词性分类：只讲将SougouDic插入进列表，同时将第三列的词性转化为列表，列表长度为17，与SougouDic中提供的17种词性对应，存在的词性设为1，其余设为0。
+
+##### word2vec
+导入腾讯ailab提供的预训练好的word2vec模型。直接导入时间过久，便将模型转换为二进制文件保存便于后续读取。导入后的文件可被视作字典。若文本存在于键中，则直接导出一个100维的列表，否则随机生成一个100维的列表。
+
+##### 训练模型
+<code>    X_train, X_test, y_train, y_test = train_test_split(vector_list, label, test_size=0.33, random_state=1)</code>
+
+通过gensim自主将所有训练文本划分为训练集和测试集。
+
+- 词类训练：运用svm<code>clf = LinearSVC() svm = CalibratedClassifierCV(clf)</code> 测试准确率为80.9%
+- 词性训练：运用moc<code>classifier = MultiOutputClassifier(XGBClassifier()) clf = Pipeline([('classify', classifier)])</code> 测试准确率为94.5%
+
+##### 输出分类结果
+均获得与输入相同长度的标签序列
+- 词类训练：获得词类的文字标签
+- 词性训练：获得与词性对应的0/1标签序列
 
 #### 构建新词典
 
