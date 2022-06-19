@@ -13,7 +13,7 @@ import numpy as np                      # 矩阵运算
 #     print("%s %s" % (x, w))
 
 # TODO: 加入迭代与封装
-with open("./TXTs/2022年06月01日/4508420.txt", encoding="utf-8") as file:
+with open("./TXTs/2022年06月02日/4801069.txt", encoding="utf-8") as file:
     split_words = jieba.cut(file.read())
     text = ' '.join(split_words)
     word_cloud = WordCloud(
