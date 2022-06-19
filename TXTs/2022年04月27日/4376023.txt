@@ -1,1 +1,0 @@
-新思科技（SNPS.US）近日宣布推出全新神经处理单元（NPU）IP核和工具链，可提供业界领先的性能并支持新兴的复杂神经网络模型。新思科技DesignWare® ARC® NPX6和NPX6FS NPU IP可满足面向AI应用的具有超低功耗的实时计算需求。另外，为加速ARC NX6 NPU IP核的应用软件开发，全新DesignWare ARC MetaWare MX开发工具包提供了全面的编译环境，可自动实现神经网络算法分区，极大提高了资源利用率。责任编辑：郭明煜

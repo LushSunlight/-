@@ -1,1 +1,0 @@
-6月13日，阿里云智能总裁张建锋在峰会上正式发布CIPU（Cloud infrastructure Processing Units），据介绍，这是为新型云数据中心设计的专用处理器，未来将替代CPU成为云计算的管控和加速中心。责任编辑：吴剑 SF031
