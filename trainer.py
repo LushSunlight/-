@@ -75,7 +75,9 @@ def attriTester(attribute_list):
 
 def w2v(words):
     print('loading model')
-    wv_from_text = gensim.models.KeyedVectors.load_word2vec_format("tencent-ailab-embedding-zh-d100-v0.2.0-s.txt", binary=False)
+    embed_path="tencent-ailab-embedding-zh-d100-v0.2.0-s.bin"
+    # wv_from_text = gensim.models.KeyedVectors.load_word2vec_format("tencent-ailab-embedding-zh-d100-v0.2.0-s.txt", binary=False)
+    wv_from_text = gensim.models.KeyedVectors.load(embed_path, mmap='r')
     print('loading finished')
     vectors=[]
     for word in words:
