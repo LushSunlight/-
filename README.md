@@ -105,6 +105,18 @@ Gensim（generate similarity）是一个简单高效的自然语言处理Python�
 导入腾讯ailab提供的预训练好的word2vec模型。直接导入时间过久，便将模型转换为二进制文件保存便于后续读取。导入后的文件可被视作字典。若文本存在于键中，则直接导出一个100维的列表，否则随机生成一个100维的列表。
 
 ##### 训练模型
+<code>    X_train, X_test, y_train, y_test = train_test_split(vector_list, label, test_size=0.33, random_state=1)</code>
+
+通过gensim自主将所有训练文本划分为训练集和测试集。
+
+- 词类训练：运用svm<code>clf = LinearSVC() svm = CalibratedClassifierCV(clf)</code> 测试准确率为80.9%
+- 词性训练：运用moc<code>classifier = MultiOutputClassifier(XGBClassifier()) clf = Pipeline([('classify', classifier)])</code> 测试准确率为94.5%
+
+##### 输出分类结果
+均获得与输入相同长度的标签序列
+- 词类训练：获得词类的文字标签
+- 词性训练：获得与词性对应的0/1标签序列
+
 #### 构建新词典
 
 #### 对数据库的初始化与数据库的访问
