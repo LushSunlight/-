@@ -12,6 +12,9 @@
 
 按软工课说的那样，先写我们有什么需求（比如分词需要有效率，需要分词准确度高，需要便于用户操作，数据完整性、系统安全性balabala），而我们选用的算法/模块有什么优势（比如jieba分词效率高，准确度高，封装性好，便于操作）
 
+- 语料库选择
+With the development of Web 2.0 technology and mobile networks, more and more people are interacting on the Web, generating a large amount of unstructured Web text. It is because people express themselves very casual in social media, so a large number of non-standard expressions like abbreviations, emoticons, etc. are generated in today's network, which is not conducive to our Chinese word separation for normative texts. Additionally, there is a lot of noise, which increases the difficulty of understanding and word separation, causing the later high-level applications such as natural language processing cannot analyze and interpret directly on this word separation result. Some studies indicate a 10% difference between the same word separation system applied to a social platform corpus and a normative corpus. Therefore, we try to avoid crawling social media user posts when selecting the corpus. Instead, we choose news website articles to crawl. News is a standardized style with good ability for separation. However, in order not to lose coverage of the new vocabulary, we additionally chose web novels to add to the corpus, meaning that we ensure both the richness and normativity of the sample pool in the corpus.
+
 #### scheme design和parameter
 
 - [ ] 修改workflow图
