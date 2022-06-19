@@ -10,6 +10,8 @@
 
 <u>说明设计原理（理念）并进行方案选择，阐明为什么要选择这个设计方案以及所采用方案的特点。重点说明要实现的功能及其要求、系统的安全性、数据的完整性、应用的运行环境及其性能等要求。</u>
 
+按软工课说的那样，先写我们有什么需求（比如分词需要有效率，需要分词准确度高，需要便于用户操作，数据完整性、系统安全性balabala），而我们选用的算法/模块有什么优势（比如jieba分词效率高，准确度高，封装性好，便于操作）
+
 #### scheme design和parameter
 
 - [ ] 修改workflow图
@@ -41,6 +43,24 @@
 #### 分词的工具：结巴分词
 
 扯一下结巴分词的算法优越在哪里
+
+As the massive words dictionary construction tool is required to obtain separated words from tens of millions of words in the corpus, there is no doubt that the Chinese text segmentation is a module of vital significance in the software. Among those famous text segmentation tools, we chose Jieba Chinese text segmentation, considering both the performance and the function.
+
+Specifically speaking, our requirements for the text segmentation module include these aspects. First of all, the word segmentation should be accurate enough so that the subsequent word sorting and dictionary construction can be accurate. Secondly, the word segmentation should support user defined dictionary so that the word segmentation can evolve as the dictionary updated iteratively. Last but not least, the efficiency of both the loading of dictionary and segmentation should be ensured, so that the massive dictionary construction can be efficient enough to meet the users' demand.
+
+With 28.8k stars on GitHub and used by 13.2k GitHub developers, Jieba Chinese text segmentation has been one of the most popular Chinese Natural Language Processing tools since its birth on last decade. Jieba Chinese text segmentation is built to be the best Python Chinese word segmentation module, with an MIT license. The details of the word segmentation tool is available at https://github.com/fxsjy/jieba.
+
+From the aspects of functions, jieba Chinese word segmentation support 3 types of segmentation mode including Accurate Mode, Full Mode and Search Engine Mode. In addition, it supports traditional Chinese as well as customized dictionaries. The segmentation tool realize these functions with these fundamental designs:
+
+- Based on a prefix dictionary structure to achieve efficient word graph scanning. Build a directed acyclic graph (DAG) for all possible word combinations.
+- Use dynamic programming to find the most probable combination based on the word frequency.
+- For unknown words, a HMM-based model is used with the Viterbi algorithm.
+
+From the aspect of performance, the segmentation speed is fast enough to meet our needs of efficient massive dictionary construction:
+
+- 1.5 MB / Second in Full Mode
+- 400 KB / Second in Default Mode
+- Test Env: Intel(R) Core(TM) i7-2600 CPU @ 3.4GHz；《围城》.txt
 
 #### 分类的工具：gensim
 
