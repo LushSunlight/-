@@ -71,7 +71,7 @@ def mySplitWords(text_root_path, output_split_words_root_path):
         fw = os.path.join(output_split_words_root_path, text_file)
         splitFile(fr,fw)
 
-# TODO: 输出每次迭代时间，语料多少篇，产生新词数量多少，旧词数量多少
+# TODO: 实现一旦分词目录下的子目录数量跟源目录下的子目录数量相同，就切换源目录和分词目录的功能
 def iteratively_split_words(num_iter = 3):
     text_root_path = "./TXTs"
     output_split_words_root_path = "./TXTs_output_split_words"
@@ -90,8 +90,23 @@ def iteratively_split_words(num_iter = 3):
         cnt += 1
     print("split words finished!")
 
+# TODO: 输出每次迭代时间，语料多少篇，产生新词数量多少，旧词数量多少
+#  输入：
+#  分词之后的文件夹。
+#  输出：
+#  1.分出来的当前迭代所产生的新词的一个总的txt，用于给下游的分类任务读取
+#  2.加入到历次迭代以来分出来的全部词的txt，用于词云制作
+#  3.把旧词加进了老词典后的新词典，输出到一个由时间+addWordsDicts命名的目录底下
+#  4.对于旧词，更新mysql数据库
+#  5.存入历次迭代发现的新词数量，总发现的词的数量，用于UI中折线图制作
 def count_words():
     pass
+
+# TODO: 分类任务结束后做什么？
+#  输出12个txt格式的新词典，并更新mysql数据库
+#  输出这次迭代中，发现的新词中各类别的数量，用dict来存储，便于UI中的可视化
+
+# TODO: 对语料的粒度粗细作分析，从时间、新词发现等方面作分析
 
 if __name__ == '__main__':
     convert_to_utf8()
