@@ -173,7 +173,7 @@ We use Scrapy framwork to corpus.
 
 通过gensim自主将所有训练文本划分为训练集和测试集。
 
-- 词类训练：运用svm<code>clf = LinearSVC() svm = CalibratedClassifierCV(clf)</code> 测试准确率为80.9%
+- 词类训练：运用svm<code>clf = LinearSVC() svm = CalibratedClassifierCV(clf)</code> 在训练集包含文本信息时，测试准确率只有50%左右，在将词频信息纳入考量后，测试准确率提升到了80.9%。
 - 词性训练：运用moc<code>classifier = MultiOutputClassifier(XGBClassifier()) clf = Pipeline([('classify', classifier)])</code> 测试准确率为94.5%
 
 ##### 输出分类结果
