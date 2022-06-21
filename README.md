@@ -76,16 +76,18 @@ From the aspect of performance, the segmentation speed is fast enough to meet ou
 - 400 KB / Second in Default Mode
 - Test Env: Intel(R) Core(TM) i7-2600 CPU @ 3.4GHz；《围城》.txt
 
-#### 分类的工具：gensim
+#### classification tool：gensim
 
-Gensim（generate similarity）是一个简单高效的自然语言处理Python库，用于抽取文档的语义主题（semantic topics）。Gensim的输入是原始的、无结构的数字文本（纯文本），内置的算法包括Word2Vec，FastText，潜在语义分析（Latent Semantic Analysis，LSA），潜在狄利克雷分布（Latent Dirichlet Allocation，LDA）等，通过计算训练语料中的统计共现模式自动发现文档的语义结构。这些算法都是非监督的，这意味着不需要人工输入——仅仅需要一组纯文本语料。一旦发现这些统计模式后，任何纯文本（句子、短语、单词）就能采用语义表示简洁地表达。
+Gensim (generate similarity) is a simple and efficient natural language processing Python library for extracting semantic topics from documents.The input to Gensim is raw, unstructured digital text (plain text) with built-in algorithms such as Word2Vec, FastText, Latent Semantic Analysis (LSA), Latent Dirichlet Allocation (LDA), and so on. Latent Semantic Analysis (LSA), Latent Dirichlet Allocation (LDA), etc., which automatically discover the semantic structure of documents by computing statistical co-occurrence patterns in the training corpus. These algorithms are unsupervised, which means that no human input is required - only a set of plain text corpus is needed. Once these statistical patterns are discovered, any plain text (sentences, phrases, words) can be succinctly expressed using semantic representations.
 
-##### 特点
--Memory independence： 不需要一次性将整个训练语料读入内存，Gensim充分利用了Python内置的生成器（generator）和迭代器（iterator）用于流式数据处理，内存效率是Gensim设计目标之一。
--Memory sharing： 训练好的模型可以持久化到硬盘，和重载到内存。多个进程之间可以共享相同的数据，减少了内存消耗。
--多种向量空间算法的高效实现： 包括Word2Vec，Doc2Vec，FastText，TF-IDF，LSA，LDA，随机映射等。
--支持多种数据结构。
--基于语义表示的文档相似度查询。
+
+##### features
+Memory independence: Instead of reading the entire training corpus into memory at once, Gensim takes advantage of Python's built-in generator and iterator for streaming data processing, and memory efficiency is one of Gensim's design goals.
+-Memory sharing: Trained models can be persisted to hard disk and reloaded to memory. The same data can be shared among multiple processes, reducing memory consumption.
+-Efficient implementation of multiple vector space algorithms: Word2Vec, Doc2Vec, FastText, TF-IDF, LSA, LDA, random mapping, etc.
+-Support multiple data structures.
+-Document similarity query based on semantic representation.
+
 
 #### 监控系统
 
@@ -155,31 +157,34 @@ We use Scrapy framwork to corpus.
 
 #### 新词发现
 
-#### 分类
+#### Classification
 
-##### 获取训练数据
-1. SougouLabDic: 提供共157202个词语的文本，词频以及词性信息
-2. THUOCL（清华大学开源词库）：提供11个分类下词语的文本及词频信息。11个分类分别为：animal,caijing,car,chenyu,diming,food,it,law,lishimingren,medical,poem
+##### Obtaining training data
+1. SougouLabDic: provides text, word frequency and lexical information of 157202 words. 2.
+2. THUOCL (Tsinghua University Open Source Thesaurus): provides text and word frequency information of 11 categories of words. 11 categories are: animal,caijing,car,chenyu,diming,food,it,law,lishimingren,medical,poem
 
-##### 训练数据处理
-- 词语分类：将THUOCL中词语提取出来，将词频的对数作为个数插入进列表，并赋予文件夹名作为标签。同时将SougouDic中的词语依照同样方式插入列表，区别在于标签设为"other"
-- 词性分类：只讲将SougouDic插入进列表，同时将第三列的词性转化为列表，列表长度为17，与SougouDic中提供的17种词性对应，存在的词性设为1，其余设为0。
+##### Training data processing
+- Word classification: The words in THUOCL are extracted, and the logarithm of the word frequency is inserted into the list as the number of words, and the folder name is given as the label. The words in SougouDic are also inserted into the list in the same way, with the difference that the label is set to "other".
+- Lexical classification: Only the words in SougouDic are inserted into the list, and the third column is converted into a list with a length of 17, corresponding to the 17 lexical categories provided in SougouDic, with the existing lexical categories set to 1 and the rest set to 0.
 
+Translated with www.DeepL.com/Translator (free version)
 ##### word2vec
-导入腾讯ailab提供的预训练好的word2vec模型。直接导入时间过久，便将模型转换为二进制文件保存便于后续读取。导入后的文件可被视作字典。若文本存在于键中，则直接导出一个100维的列表，否则随机生成一个100维的列表。
+Import the pre-trained word2vec model provided by Tencentailab. It takes too long to import directly, so the model is converted to a binary file for subsequent reading. The imported file can be regarded as a dictionary. If the text exists in the key, a 100-dimensional list is directly exported, otherwise a 100-dimensional list is randomly generated.
 
-##### 训练模型
+##### Training model
 <code>    X_train, X_test, y_train, y_test = train_test_split(vector_list, label, test_size=0.33, random_state=1)</code>
 
-通过gensim自主将所有训练文本划分为训练集和测试集。
 
-- 词类训练：运用svm<code>clf = LinearSVC() svm = CalibratedClassifierCV(clf)</code> 在训练集包含文本信息时，测试准确率只有50%左右，在将词频信息纳入考量后，测试准确率提升到了80.9%。
-- 词性训练：运用moc<code>classifier = MultiOutputClassifier(XGBClassifier()) clf = Pipeline([('classify', classifier)])</code> 测试准确率为94.5%
+All training texts were divided into training and test sets by gensim autonomously.
+ 
+ - Lexical training:svm<code>clf = LinearSVC() svm = CalibratedClassifierCV(clf)</code> the test accuracy was only about 50% when applied to the training set containing textual information, and increased to 80.9% after taking word frequency information into account.
+- Lexical training:moc<code>classifier = MultiOutputClassifier(XGBClassifier()) clf = Pipeline([('classify', classifier)])</code> the test accuracy was 94.5% 
 
-##### 输出分类结果
-均获得与输入相同长度的标签序列
-- 词类训练：获得词类的文字标签
-- 词性训练：获得与词性对应的0/1标签序列
+
+##### Output classification results
+All get the same length label sequence as the input
+- Word class training: get the text labels of word classes
+- Word training: get 0/1 tag sequence corresponding to word class
 
 #### 构建新词典
 
