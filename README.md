@@ -273,15 +273,60 @@ D:.
 
 <u>课程设计过程的收获、遇到的问题，遇到问题解决问题过程的思考、程序调试能力的思考，课程设计实现过程中的收获和体会等。</u>
 
-丁嘉缘：
-Innovation points.
+### 5.课程设计总结
+
+#### 刘奕彤
+
+In this project, I am mainly responsible for the workflow analysis, implementation of Chinese word segmentation, Dictionary construction and update, New word discovery, word cloud generating as well as integrating all the modules and integrated testing of the whole project.
+
+At first, I did not consider the project as a difficult task after analyzing the requirements and designing the module flowchart, however, during the implementation, testing and maintenance of the project, I encountered many obstacles. Nevertheless, I felt grateful that I took part in such a Chinese massive dictionary construction project, from which I learnt even more than what I studied in the Software Engineering lectures last semester.
+
+##### Chinese Word Segmentation
+
+At first, the loading of user-defined dictionary with jieba module was slow, which annoyed me. After learning how jieba module loads the basic dictionary, I loaded the user-defined dictionary directly by rewriting the dict.txt file, which shortened the loading time from half a minute to less than 2 seconds.
+
+##### Dictionary Construction
+
+For the dictionary construction, I combined the advantages of text file and sqlite database. The text file can be initialized at a relatively high speed and can be utilized by the jieba module more efficiently. However, as far as the safety of data and the convenience of updating, selecting data are concerned, the text file cannot compete with the sqlite database.
+
+In addition, in the process of improving the dictionary construction module, I also got more familiar with reading, writing and updating disk files and database with Python. Practice proved what I learned from the Operating System and Database lectures was useful, although the the lectures seemed to be a little boring.
+
+Last but not least, I also practiced the usage of generator to save the space in memory and in the disk, after reading the source code of the jieba module.
+
+##### What I Learned from Testing and Version Control
+
+I practiced the knowledge of testing taught on the software engineering lectures and tasted the essence of it. Tedious as it might be, the module testing is significant for the success of integrated testing, since any small mistake made in any branch of a module might lead to a disaster in the integrated testing.
+
+During the testing, one iteration of dictionary reconstruction cost unacceptably long time, nearly an hour. To save time, I gradually lowered the frequency of accessing disk file and database, cleaned those words which were not Chinese words and quit updating the entries of emerging old words with low frequency. These efforts payed off and I managed to be shorten the iteration time to about 5 minutes on average.
+
+In addition, I also gained the precious experience of version control with GitHub, such as the usage of the ".gitignore" file to isolate the large files that slower the process of commit,  pulling and pushing.
+
+“Practice makes perfect”, I will keep practicing what I learned from the lectures, text books and papers and improved my skill at coding, engineering through overcoming those obstacles.
+
+
+
+#### 刘朴淳
+
+Responsible for the implementation of Monitoring System User Interface.
+
+I encountered many problems in the process of creating the system UI. First of all, the input and output of each function are different, so the interface part cannot be unified directly. Our solution was to negotiate the input and output of each module and its function, and then integrate the interface with each part. I used PyQt5 to create the overall UI and integration, and in the process of creating it, I first encountered the problem of conflicting environments. The solution was to find the right version of the environment components, and finally the problem was solved by trial and error. In addition, it was worth thinking about the inclusion relationship between the components, as it was necessary to ensure that the program as a whole would only pop up a fixed pop-up window, so multiple sub-components could not be created. The most difficult problem of all was the relationship between signals and slots. I integrated the functions of each page and button by linking the signals and slots. 
+
+To sum up, during the course design, I got a better understanding of the whole process of software engineering. Realized data replication of heterogeneous database from software specification, software design and implementation to software validation and maintenance. Improved my programming and debugging skills. I learned the difference between PyQt5 and the underlying design. 
+
+
+
+#### 丁嘉缘
+
+Responsible for the module of word classification.
+
 1. Using gensim, the classification task is done simply and effectively
-2. By improving the model, the speed of outputting results is accelerated
-Difficulties.
-1. The training of word2vector model requires a lot of time and corpus. Solution: Import the pre-trained Tencentailab model, which can convert words into 100-dimensional vectors
-2. Words can have multiple lexical properties at the same time, and single-label classification algorithms such as svm cannot be used. Solution: Use the moc algorithm in gensim
+2. By improving the model, the speed of outputting results is accelerated Difficulties.
+3. The training of word2vector model requires a lot of time and corpus. Solution: Import the pre-trained Tencentailab model, which can convert words into 100-dimensional vectors
+4. Words can have multiple lexical properties at the same time, and single-label classification algorithms such as svm cannot be used. Solution: Use the moc algorithm in gensim
 
 #### 岳宇洋
+
+Responsible for preparing the Corpus by web crawler.
 
 ##### Learn Crawler From Scratch
 
