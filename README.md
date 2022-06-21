@@ -194,6 +194,7 @@ We use Scrapy framwork to corpus.
 #### 功能测试
 
 把各个模块测试的测试用例列一下，把结果图截下来
+
 Parsing Info Logging:
 
 ```
@@ -231,6 +232,11 @@ D:.
         6855254.txt
         6855909.txt
 ```
+
+#### 分类模块
+
+- 词类训练：运用svm<code>clf = LinearSVC() svm = CalibratedClassifierCV(clf)</code> 在训练集包含文本信息时，测试准确率只有50%左右，在将词频信息纳入考量后，测试准确率提升到了80.9%。
+- 词性训练：运用moc<code>classifier = MultiOutputClassifier(XGBClassifier()) clf = Pipeline([('classify', classifier)])</code> 测试准确率为94.5%
 
 #### 性能测试
 
