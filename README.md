@@ -12,18 +12,34 @@
 
 按软工课说的那样，先写我们有什么需求（比如分词需要有效率，需要分词准确度高，需要便于用户操作，数据完整性、系统安全性balabala），而我们选用的算法/模块有什么优势（比如jieba分词效率高，准确度高，封装性好，便于操作）
 
-- 语料库选择
+#### Choice of Corpus
 
 
 With the development of Web 2.0 technology and mobile networks, more and more people are interacting on the Web, generating a large amount of unstructured Web text. It is because people express themselves very casual in social media, so a large number of non-standard expressions like abbreviations, emoticons, etc. are generated in today's network, which is not conducive to our Chinese word separation for normative texts. Additionally, there is a lot of noise, which increases the difficulty of understanding and word separation, causing the later high-level applications such as natural language processing cannot analyze and interpret directly on this word separation result. Some studies indicate a 10% difference between the same word separation system applied to a social platform corpus and a normative corpus. Therefore, we try to avoid crawling social media user posts when selecting the corpus. Instead, we choose news website articles to crawl. News is a standardized style with good ability for separation. However, in order not to lose coverage of the new vocabulary, we additionally chose web novels to add to the corpus, meaning that we ensure both the richness and normativity of the sample pool in the corpus.
 
 **Our corpus,**
 
-**Sina News, 2022, 924MB**
+1. Sina News, 2022, 924MB
+2. Xinwenlianbo scripts of CCTV, 63MB
+3. Biquge Web Novels, 877MB
 
-**Xinwenlianbo scripts of CCTV, 63MB**
 
-**Biquge Web Novels, 877MB**
+#### Persistent Crawler
+
+Internet is very complex. Unfriendly web data formats, dead web servers, and tags of target data that cannot be found are are very troublesome. One of the most painful I've encountered with web crawling is when the crawler is running and I went to sleep, dreaming that the data will be crawled and put in the database in the morning But only to wake up the next day to see the crawler that run incorrectly due to some data formatting anomaly, and that the crawler stopped running not long after I left without staring at the screen the day before and went to sleep. 
+
+The crawler mainly encounters web pages that do not exist on the server, or errors when fetching pages and server does not exist. So I catch those errors and then handle it with corresponding method, print the error info to screen and try to continue the next scraping job. Therefore, I can make the crawler keep working longer.
+
+#### Coding for Each Specific Webpage
+
+Each kind of website follow a certain format of writing, but every page varies greatly from one website to another. By research carefully at those of each website, I would find commonalities between them and design an exclusive crawler for each website to efficiently and quickly crawl the content on the website.
+
+#### Standardized Document Management
+
+While it is interesting and convenient to display all results of a run on the command line, this is not an option as the data grows and needs to be aggregated and analyzed. The ability to store and interact with big data has also been a top priority in modern program development. MySQL is a very flexible, stable and full-featured relational DBMS. Redis is an in-memory data structure store and key–value database. Both of them make the crawler access and fetch data from local storage faster and more convenient. It is the foundation that guarantees the crawler to achieve large amount of data and large number of threads to crawl webpages.
+
+
+
 
 
 #### scheme design和parameter
@@ -264,3 +280,17 @@ Innovation points.
 Difficulties.
 1. The training of word2vector model requires a lot of time and corpus. Solution: Import the pre-trained Tencentailab model, which can convert words into 100-dimensional vectors
 2. Words can have multiple lexical properties at the same time, and single-label classification algorithms such as svm cannot be used. Solution: Use the moc algorithm in gensim
+
+#### 岳宇洋
+
+##### Hard to Learn Crawler From Scratch
+
+If we say programming is a magic, then web scraping is a wizardry. It is also the use of magic to achieve wonderfully practical yet effortless feats. Therefore, it's hard to learn such a wizardry in a short time. In this project I referred to two books, read dozens of blogs, from not being able to read the code to write my own code, and achieve many breakthroughs.
+
+##### Fix the Bug of Getting Stuck Due to A Large Number of Files
+
+Since we are building a corpus, we need a gigabyte level of text. And the size of each character is only 1 byte, so we are dealing with a gigabyte-level amount of characters. Users usually do not need to process such huge amount of text, so operating systems and applications are usually not friendly to big data support, highlighted by lagging and failed to process. Therefore, I introduced two databases for storing articles and for storing links to traversed articles. The databases ensure the reading and processing of this huge scale of data, speeding up the program's efficiency and ensuring availability.
+
+##### Choose Corpus Carefully
+
+A corpus is a formal, standardized collection of words stored in a database for retrieval by a specific program. The Internet, which is now a social platform where everyone can submit a comment, has more or less polluted the word set. Users freely use unstandardized style words on the Internet, which brings certain difficulties and challenges to word separation. Therefore, we selected not out-of-date but standardized texts as a corpus for subsequent operations.
