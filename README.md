@@ -257,3 +257,10 @@ D:.
 
 <u>课程设计过程的收获、遇到的问题，遇到问题解决问题过程的思考、程序调试能力的思考，课程设计实现过程中的收获和体会等。</u>
 
+丁嘉缘：
+Innovation points.
+1. Using gensim, the classification task is done simply and effectively
+2. By improving the model, the speed of outputting results is accelerated
+Difficulties.
+1. The training of word2vector model requires a lot of time and corpus. Solution: Import the pre-trained Tencentailab model, which can convert words into 100-dimensional vectors
+2. Words can have multiple lexical properties at the same time, and single-label classification algorithms such as svm cannot be used. Solution: Use the moc algorithm in gensim
