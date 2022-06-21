@@ -283,7 +283,7 @@ Difficulties.
 
 #### 岳宇洋
 
-##### Hard to Learn Crawler From Scratch
+##### Learn Crawler From Scratch
 
 If we say programming is a magic, then web scraping is a wizardry. It is also the use of magic to achieve wonderfully practical yet effortless feats. Therefore, it's hard to learn such a wizardry in a short time. In this project I referred to two books, read dozens of blogs, from not being able to read the code to write my own code, and achieve many breakthroughs.
 
